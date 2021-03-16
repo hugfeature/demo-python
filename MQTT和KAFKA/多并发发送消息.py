@@ -10,24 +10,24 @@ num = 100
 
 
 def sendKafkaMsg():
-    pool = multiprocessing.Pool(num)
+    pool = multiprocessing.Pool(2)
     kafka_hosts = "192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092"
     for i in range(num):
         # topic = "wzx_test" + str(i)
-        topic = ""
+        topic = "whl_test"
         pool.apply_async(func=KAFKA消息发送.kafka_producer, args=(kafka_hosts, topic))
     pool.close()
     pool.join()
 
 
 def sendMqttMsg():
-    pool = multiprocessing.Pool(num)
+    pool = multiprocessing.Pool(2)
     mqtt_hosts = '192.168.175.228'
     for i in range(num):
         # client = "wzxtest" + str(i)
         # topic = "/zmj/test" + str(i)
-        client = ""
-        topic = ""
+        client = "whl"
+        topic = "/zmj/test"
         pool.apply_async(func=MQTT消息发送.send, args=(client, mqtt_hosts, topic))
     pool.close()
     pool.join()

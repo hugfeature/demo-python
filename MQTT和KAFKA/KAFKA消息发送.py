@@ -14,14 +14,14 @@ def kafka_producer(hosts, topic):
     """
     向kafka循环发送
     :param hosts:
-    :param topic_name:
+    :param topic:
     :return:
     """
     producer = kafka.KafkaProducer(bootstrap_servers=hosts)
     try:
         id_n = 0
         while True:
-            msg_time = datetime.datetime.now() + relativedelta(years=1, months=1, days=0)
+            msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
             value = random.randint(0, 9999)
             label_list = ['260001010001000100010001010001', '260001010001000100010002010001',
                           '260001010001000100010003010001', '260001010001000100010006010001',

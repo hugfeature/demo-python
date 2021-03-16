@@ -6,15 +6,17 @@ import random
 
 from dateutil.relativedelta import relativedelta
 from paho.mqtt import client as mqtt_client
-import time
 
 if __name__ == '__main__':
+    # 连接MQTT服务器
     def on_connet(client, userdata, flags, rc_connect):
         print("Connected with result code:" + str(rc_connect))
 
 
+    # 发送MQTT消息
     def on_publish(rc_publis):
         print('Publish with result code:' + str(rc_publis))
+
 
     # 延迟发送
     # topic = '$delayed/300/zaokuang/fucun/222'
@@ -50,5 +52,5 @@ if __name__ == '__main__':
         # if n == 2:
         #     break
         # time.sleep(1)
-    #保持连接
+    # 保持连接
     # client.loop_forever()
