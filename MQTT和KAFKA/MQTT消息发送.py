@@ -10,17 +10,33 @@ from dateutil.relativedelta import relativedelta
 
 
 def on_connet(client, userdata, flags, rc_connect):
+    """
+    构建mqtt连接信息
+    :param client:
+    :param userdata:
+    :param flags:
+    :param rc_connect:
+    :return:
+    """
     print("Connected with result code:" + str(rc_connect))
 
 
 def send(client, host, topic):
+    """
+    向MQTT的topic中发消息
+    :param client:
+    :param host:
+    :param topic:
+    :return:
+    """
     client = mqtt.Client(client)
     # Specify callback function
     client.on_connect = on_connet
-    client.username_pw_set('whl', 'whl')
+    client.username_pw_set('zmj', 'zmj')
     client.connect(host, 1883, 60)
     client.loop_start()
     n = 0
+    #构建消息体并一直发送
     while True:
         msg_time = datetime.datetime.now() + relativedelta(years=1, months=1, days=0)
         value = random.randint(0, 9999)
