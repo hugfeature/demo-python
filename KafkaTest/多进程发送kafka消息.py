@@ -2,7 +2,7 @@
 # datetime:2020/5/18 10:23
 import datetime
 
-from KafkaTest import 函数
+from KafkaTest import kafka_utils
 import multiprocessing
 if __name__ == "__main__":
     time_start = datetime.datetime.now().timestamp()
@@ -11,11 +11,11 @@ if __name__ == "__main__":
     hosts = "192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092"
     topic_name = "wzx_test"
     # topic_name = "testinner"
-    p0 = multiprocessing.Process(target=函数.kafka_producer_circulate, args=(hosts, topic_name))
-    p1 = multiprocessing.Process(target=函数.kafka_producer_circulate, args=(hosts, topic_name))
-    p2 = multiprocessing.Process(target=函数.kafka_producer_circulate, args=(hosts, topic_name))
-    p3 = multiprocessing.Process(target=函数.kafka_producer_circulate, args=(hosts, topic_name))
-    p4 = multiprocessing.Process(target=函数.kafka_producer_circulate, args=(hosts, topic_name))
+    p0 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
+    p1 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
+    p2 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
+    p3 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
+    p4 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
     p0.start()
     p1.start()
     p2.start()

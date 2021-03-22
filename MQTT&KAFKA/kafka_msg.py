@@ -21,7 +21,10 @@ def kafka_producer(hosts, topic):
     try:
         id_n = 0
         while True:
-            msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
+            # 一个月之前的当天
+            # msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
+            # 当前时间
+            msg_time = datetime.datetime.now()
             value = random.randint(0, 9999)
             label_list = ['260001010001000100010001010001', '260001010001000100010002010001',
                           '260001010001000100010003010001', '260001010001000100010006010001',
@@ -39,8 +42,8 @@ def kafka_producer(hosts, topic):
             send_msg = "[" + json.dumps(msg) + "]"
             producer.send(topic, send_msg.encode())
             time.sleep(0.001)
-            # if id_n == 1:
-            #     break
+            if id_n == 100000:
+                break
     except KafkaError as e:
         print(e)
     finally:

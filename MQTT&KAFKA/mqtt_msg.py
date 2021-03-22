@@ -38,7 +38,10 @@ def send(client, host, topic):
     n = 0
     #构建消息体并一直发送
     while True:
-        msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
+        # 一个月之前的当天
+        # msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
+        # 当前时间
+        msg_time = datetime.datetime.now()
         value = random.randint(0, 9999)
         label_list = ['260001010001000100010001010001', '260001010001000100010002010001',
                       '260001010001000100010003010001', '260001010001000100010006010001',

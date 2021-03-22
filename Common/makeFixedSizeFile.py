@@ -22,4 +22,4 @@ def genSizeFile(fileName, fileSize):
 
 
 # start here.
-genSizeFile("test-50M", 50 * 1024 * 1024)
+genSizeFile("test-2G", 2*1024 * 1024 * 1024)
