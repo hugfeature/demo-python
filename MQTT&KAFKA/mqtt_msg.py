@@ -61,3 +61,33 @@ def send(client, host, topic):
         time.sleep(0.001)
         # if n == 1:
         #     break
+
+def send_edge(client, host, topic):
+    """
+    向MQTT的topic中发消息
+    :param client:
+    :param host:
+    :param topic:
+    :return:
+    """
+    client = mqtt.Client(client)
+    # Specify callback function
+    client.on_connect = on_connet
+    client.username_pw_set('whl', 'whl')
+    client.connect(host, 1883, 60)
+    client.loop_start()
+    n = 0
+    #构建消息体并一直发送
+    while True:
+        # 一个月之前的当天
+        # msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
+        # 当前时间
+        msg_time = datetime.datetime.now()
+        value = random.randint(0, 9999)
+        label_list = ['电液控.支架集.123.立柱压力', '电液控.支架集.123.前溜行程']
+        label = random.choice(label_list)
+        msg = {'Value': value, 'DataPoint': label, 'Timestamp': int(msg_time.timestamp() * 1000)}
+        send_msg = "[" + json.dumps(msg, ensure_ascii=False) + "]"
+        n = n + 1
+        client.publish(topic, payload=send_msg, qos=0)
+        time.sleep(0.001)

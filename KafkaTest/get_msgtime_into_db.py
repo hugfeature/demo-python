@@ -1,6 +1,8 @@
 # author:丑牛
 # datetime:2020/5/20 17:30
 import json
+
+import demjson
 import kafka
 
 from PostgresqlTest import postgres
@@ -24,12 +26,12 @@ def kafka_get_time(host, topic):
     for msg in consumer:
         # print(msg.value)
         # f.write(msg.value)
-        print(msg.value)
-        str1 = bytes.decode(msg.value, "utf-8")
-        print(str1)
         # 解决json loads报错'utf-32-be'
-        # msg_str = json.loads(msg.value)
-        msg_str = json.loads(str1)
+        # print(msg.value)
+        str_1 = bytes.decode(msg.value)
+        # 解决json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+        msg_str = json.loads(str_1)
+        print(msg_str)
         # print(msg_str, print(type(msg_str)))
         # 转换处理时间
         time_end = float(msg_str["it"])

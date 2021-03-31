@@ -9,7 +9,7 @@ if __name__ == "__main__":
     print(time_start)
     # hosts = "192.168.175.198:9092,192.168.175.198:9093,192.168.175.198:9094"
     hosts = "192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092"
-    topic_name = "wzx_test"
+    topic_name = "whl_test"
     # topic_name = "testinner"
     p0 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))
     p1 = multiprocessing.Process(target=kafka_utils.kafka_producer_circulate, args=(hosts, topic_name))

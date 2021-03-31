@@ -35,18 +35,18 @@ def kafka_producer_circulate(hosts, topic_name):
         time_m = 0
         num = 0
         while True:
-            msg_time = datetime.datetime.now() + relativedelta(years=1, month=8, day=1)
+            msg_time = datetime.datetime.now()
             # msg_time = 1627747201000 + time_m * 1000 * 1000  # 2021年8月
             value = random.randint(0, 9999)
             value_type = ["L", "B", "S", "F"]
             # msg_time1 = 1609516801000 + time_m * 1000 * 1000
-            # msg = {'Value': value, 'SysCode': "13000010", 'ChannelCode': "001001",
-            #        'DeviceCode': "000100010001" + "%04d" % id_n, 'DataID': "010001", 'UpdateCount': id_n, 'State': 1,
-            #        'Timestamp': int(msg_time.timestamp() * 1000)}
+            msg = {'Value': value, 'SysCode': "13000010", 'ChannelCode': "001001",
+                   'DeviceCode': "000100010001" + "%04d" % id_n, 'DataID': "010001", 'UpdateCount': id_n, 'State': 1,
+                   'Timestamp': int(msg_time.timestamp() * 1000)}
             # 'vt': random.choice(value_type)
-            msg = {'ns': "111000", 'id': "16000010000100010001" + "%04d" % id_n + "010001",
-                   't': int(msg_time.timestamp() * 1000), 'v': str(value), 'vt': "F",
-                   'c': "001001", 'u': id_n, 's': 1, 'it': int(time.time() * 1000)}
+            # msg = {'ns': "111000", 'id': "16000010000100010001" + "%04d" % id_n + "010001",
+            #        't': int(msg_time.timestamp() * 1000), 'v': str(value), 'vt': "F",
+            #        'c': "001001", 'u': id_n, 's': 1, 'it': int(time.time() * 1000)}
             id_n = id_n + 1
             num = num + 1
             send_msg = "[" + json.dumps(msg) + "]"
@@ -54,7 +54,7 @@ def kafka_producer_circulate(hosts, topic_name):
             if id_n == 201:
                 id_n = 1
                 time_m = time_m + 1
-            if num == 200000:
+            if num == 600000:
                 break
             # time.sleep(0.0001)
     except KafkaError as e:

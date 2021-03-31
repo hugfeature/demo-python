@@ -41,9 +41,9 @@ def kafka_producer(hosts, topic):
             id_n = id_n + 1
             send_msg = "[" + json.dumps(msg) + "]"
             producer.send(topic, send_msg.encode())
-            time.sleep(0.001)
-            if id_n == 100000:
-                break
+            time.sleep(1)
+            # if id_n == 100000:
+            #     break
     except KafkaError as e:
         print(e)
     finally:
