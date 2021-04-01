@@ -36,7 +36,7 @@ def send(client, host, topic):
     client.connect(host, 1883, 60)
     client.loop_start()
     n = 0
-    #构建消息体并一直发送
+    # 构建消息体并一直发送
     while True:
         # 一个月之前的当天
         # msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
@@ -62,6 +62,7 @@ def send(client, host, topic):
         # if n == 1:
         #     break
 
+
 def send_edge(client, host, topic):
     """
     向MQTT的topic中发消息
@@ -77,17 +78,17 @@ def send_edge(client, host, topic):
     client.connect(host, 1883, 60)
     client.loop_start()
     n = 0
-    #构建消息体并一直发送
+    # 构建消息体并一直发送
     while True:
         # 一个月之前的当天
         # msg_time = datetime.datetime.now() + relativedelta(years=0, months=-1, days=0)
         # 当前时间
         msg_time = datetime.datetime.now()
         value = random.randint(0, 9999)
-        label_list = ['电液控.支架集.123.立柱压力', '电液控.支架集.123.前溜行程']
-        label = random.choice(label_list)
+        label = "电液控.支架集." + str(value) + ".前溜行程"
         msg = {'Value': value, 'DataPoint': label, 'Timestamp': int(msg_time.timestamp() * 1000)}
         send_msg = "[" + json.dumps(msg, ensure_ascii=False) + "]"
+        # print(send_msg)
         n = n + 1
         client.publish(topic, payload=send_msg, qos=0)
         time.sleep(0.001)

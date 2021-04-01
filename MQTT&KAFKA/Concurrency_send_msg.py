@@ -10,7 +10,7 @@ num = 100
 
 
 def sendKafkaMsg():
-    pool = multiprocessing.Pool(2)
+    pool = multiprocessing.Pool(1)
     # 云侧
     # kafka_hosts = "192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092"
     # 边缘侧
@@ -26,17 +26,16 @@ def sendKafkaMsg():
 
 
 def sendMqttMsg():
-    pool = multiprocessing.Pool(2)
+    pool = multiprocessing.Pool(1)
     mqtt_hosts = '192.168.175.228'
     for i in range(num):
         # client = "wzxtest" + str(i)
         # topic = "/zmj/test" + str(i)
-        client = "whl"
-        topic = "/zmj/test"
-        pool.apply_async(func=mqtt_msg.send, args=(client, mqtt_hosts, topic))
+        client = "wzxtest"
+        topic = "pingmeijituan/shoushanyikuang/zstest"
+        pool.apply_async(func=mqtt_msg.send_edge, args=(client, mqtt_hosts, topic))
     pool.close()
     pool.join()
-
 
 
 if __name__ == "__main__":

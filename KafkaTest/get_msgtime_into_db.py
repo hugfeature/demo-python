@@ -19,6 +19,7 @@ def kafka_get_time(host, topic):
     # 连接postgresql数据库
     host = '127.0.0.1'
     db_password = 'wzx670905'
+
     connet = postgres.connect(host, db_password)
     # 写入本地文件
     # f = open("test_time.csv", "w")
@@ -31,12 +32,19 @@ def kafka_get_time(host, topic):
         str_1 = bytes.decode(msg.value)
         # 解决json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
         msg_str = json.loads(str_1)
-        print(msg_str)
+        #
+        # (msg_str)
         # print(msg_str, print(type(msg_str)))
         # 转换处理时间
-        time_end = float(msg_str["it"])
+        # 云侧
+        # time_end = float(msg_str["it"])
+        # 边缘侧
+        time_end = float(msg_str[0]["time"])
         # 事件发生时间
-        time_start = float(msg_str["t"])
+        # 云侧
+        # time_start = float(msg_str["t"])
+        # 边缘侧
+        time_start = float(msg_str[0]["Timestamp"])
         time_use = time_end - time_start
         insert_sql = "INSERT INTO time(time_end, time_start, time_use) VALUES " \
                      "(" + str(time_end) + "," + str(time_start) + "," + str(time_use) + ")"

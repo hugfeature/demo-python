@@ -54,7 +54,7 @@ def kafka_producer_circulate(hosts, topic_name):
             if id_n == 201:
                 id_n = 1
                 time_m = time_m + 1
-            if num == 600000:
+            if num == 20000:
                 break
             # time.sleep(0.0001)
     except KafkaError as e:

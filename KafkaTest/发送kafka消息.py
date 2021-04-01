@@ -6,17 +6,13 @@ import time
 from dateutil.relativedelta import relativedelta
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
-# producer = KafkaProducer(bootstrap_servers='192.168.175.198:9092,192.168.175.198:9093,192.168.175.198:9094')
-# topic = 'test'
+
 producer = KafkaProducer(bootstrap_servers='192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092')
 topic = 'whl_test'
-# producer = KafkaProducer(bootstrap_servers='192.168.175.196:9092,192.168.175.196:9093,192.168.175.196:9094')
-# topic = 'wzx'
 
 
 def test():
     try:
-        id_n = 1
         n = 0
         while True:
             msg_time = datetime.datetime.now() + relativedelta(years=1, months=1, days=0)
@@ -34,14 +30,11 @@ def test():
                    'DeviceCode': label[8:24], 'DataID': label[24:30], 'UpdateCount': n, 'State': 1,
                    'Timestamp': int(msg_time.timestamp() * 1000)}
             n = n + 1
-            id_n = id_n + 1
             print(n)
             send_msg = "[" + json.dumps(msg) + "]"
             producer.send(topic, send_msg.encode())
-            if n == 4:
+            if n == 100000:
                 break
-            # if id_n == 200:
-            #     id_n = 1
             # time.sleep(1)
     except KafkaError as e:
         print(e)
