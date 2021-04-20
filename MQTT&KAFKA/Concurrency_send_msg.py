@@ -40,8 +40,8 @@ def sendMqttMsg():
 
 if __name__ == "__main__":
     time_start = datetime.datetime.now().timestamp()
-    # multiprocessing.Process(target=sendMqttMsg).start()
-    multiprocessing.Process(target=sendKafkaMsg).start()
+    multiprocessing.Process(target=sendMqttMsg).start()
+    # multiprocessing.Process(target=sendKafkaMsg).start()
     for p in multiprocessing.active_children():  # 循环打印子进程的名称和pid
         print("子进程名称：%s，子进程pid：%d" % (p.name, p.pid))
     print("ending....")

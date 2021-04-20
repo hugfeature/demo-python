@@ -8,4 +8,3 @@ while i < 9:
         j += 1
         print(f"{j}x{i} = {i*j} ", end="")
     print()
-

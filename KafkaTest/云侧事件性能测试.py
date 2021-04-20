@@ -44,8 +44,6 @@ def test():
                 value_type = "F"
             msg = {'ns': "37082600014020001002", 'id': label, 't': msg_time, 'v': str(value),
                    'vt': value_type, 'c': "001001", 'u': 1, 's': 1, 'it': msg_time}
-            # msg = {'ns': "37082600014020001002", 'id': "26000101000100010001" + "%04d" % id_n + "010001", 't': msg_time, 'v': random.choice(value_lsit),
-            #        'vt': "F", 'c': "001001", 'u': 1, 's': 1, 'it': msg_time}
             send_msg = "[" + json.dumps(msg) + "]"
             producer.send(topic, send_msg.encode())
             n = n + 1

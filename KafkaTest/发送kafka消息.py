@@ -6,16 +6,21 @@ import time
 from dateutil.relativedelta import relativedelta
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
-
-producer = KafkaProducer(bootstrap_servers='192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092')
-topic = 'whl_test'
+#云侧
+# producer = KafkaProducer(bootstrap_servers='192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092')
+# topic = 'whl_test'
+#边缘侧
+producer = KafkaProducer(
+    bootstrap_servers='192.168.175.228:9092,192.168.175.228:9093,192.168.175.228:9094')
+topic = 'wzx_test'
 
 
 def test():
     try:
         n = 0
         while True:
-            msg_time = datetime.datetime.now() + relativedelta(years=1, months=1, days=0)
+            # msg_time = datetime.datetime.now() + relativedelta(years=1, months=1, days=0)
+            msg_time = datetime.datetime.now()
             value = random.randint(0, 9999)
             label_list = ['260001010001000100010001010001', '260001010001000100010002010001',
                           '260001010001000100010003010001', '260001010001000100010006010001',
@@ -33,7 +38,7 @@ def test():
             print(n)
             send_msg = "[" + json.dumps(msg) + "]"
             producer.send(topic, send_msg.encode())
-            if n == 100000:
+            if n == 400000:
                 break
             # time.sleep(1)
     except KafkaError as e:
