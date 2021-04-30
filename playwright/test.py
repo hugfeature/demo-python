@@ -1,6 +1,6 @@
 # author:丑牛
 # datetime:2020/12/22 11:16
-from playwright import sync_playwright
+from playwright.sync_api import sync_playwright
 
 
 def run(playwright):

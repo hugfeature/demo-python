@@ -1,8 +1,6 @@
 # author:丑牛
 # datetime:2020/5/20 17:30
 import json
-
-import demjson
 import kafka
 
 from PostgresqlTest import postgres
@@ -37,14 +35,14 @@ def kafka_get_time(host, topic):
         # print(msg_str, print(type(msg_str)))
         # 转换处理时间
         # 云侧
-        # time_end = float(msg_str["it"])
+        time_end = float(msg_str["it"])
         # 边缘侧
-        time_end = float(msg_str[0]["time"])
+        # time_end = float(msg_str[0]["tt"])
         # 事件发生时间
         # 云侧
-        # time_start = float(msg_str["t"])
+        time_start = float(msg_str["t"])
         # 边缘侧
-        time_start = float(msg_str[0]["Timestamp"])
+        # time_start = float(msg_str[0]["Timestamp"])
         time_use = time_end - time_start
         insert_sql = "INSERT INTO time(time_end, time_start, time_use) VALUES " \
                      "(" + str(time_end) + "," + str(time_start) + "," + str(time_use) + ")"
@@ -57,8 +55,7 @@ def kafka_get_time(host, topic):
 
 if __name__ == "__main__":
     hosts = "192.168.175.234:9092,192.168.175.235:9092,192.168.175.236:9092"
-    # hosts = "192.168.175.196:9092, 192.168.175.196:9093, 192.168.175.196:9094"
-    # topic_name = "Inner_Ts_Cloud"
-    topic_name = "whl_test1"
-    # topic_name = "testinner"
+    topic_name = "whl_test"
+    # hosts = "192.168.175.228:9092, 192.168.175.228:9093, 192.168.175.228:9094"
+    # topic_name = "wzx_test1"
     kafka_get_time(hosts, topic_name)

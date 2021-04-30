@@ -15,8 +15,8 @@ def inner_get_avg(url):
 
 
 if __name__ == '__main__':
-    cpu_url = 'http://cdh-1:8088/proxy/application_1615272298938_0082/taskmanagers/metrics?get=Status.JVM.CPU.Load'
-    mem_url = 'http://cdh-1:8088/proxy/application_1615272298938_0082/taskmanagers/metrics?get=Status.JVM.Memory.Heap.Used'
+    cpu_url = 'http://cdh-1:8088/proxy/application_1615272298938_0319/taskmanagers/metrics?get=Status.JVM.CPU.Load'
+    mem_url = 'http://cdh-1:8088/proxy/application_1615272298938_0319/taskmanagers/metrics?get=Status.JVM.Memory.Heap.Used'
     host = '127.0.0.1'
     db_password = 'wzx670905'
     connect = postgres.connect(host, db_password)
@@ -31,6 +31,6 @@ if __name__ == '__main__':
         connect.commit()
         time.sleep(1)
         n = n + 1
-        if n == 60 * 12:
+        if n == 60 * 6:
             break
     connect.close()

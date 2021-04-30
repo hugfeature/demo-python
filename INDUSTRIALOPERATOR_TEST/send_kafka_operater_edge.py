@@ -1,7 +1,7 @@
 import json
+import multiprocessing
 import random
 import datetime
-import time
 
 # from dateutil.relativedelta import relativedelta
 from kafka import KafkaProducer
@@ -35,14 +35,14 @@ def test():
             n = n + 1
             # 消息体转为json格式
             send_msg = "[" + json.dumps(msg) + "]"
-            print(send_msg)
+            print(str(n) + "====>" + send_msg)
             # 发送消息
-            # producer.send(topic, send_msg.encode())
+            producer.send(topic, send_msg.encode())
             if num == 60:
                 num = 0
-            # if n == 400000:
-            #     break
-            time.sleep(0.002)
+            if n == 200000:
+                break
+            # time.sleep(0.002)
     except KafkaError as e:
         print(e)
     finally:
@@ -53,7 +53,11 @@ def test():
 if __name__ == '__main__':
     time_start = datetime.datetime.now().timestamp()
     print(time_start)
-    test()
+    p0 = multiprocessing.Process(target=test)
+    p1 = multiprocessing.Process(target=test)
+    p0.start()
+    p1.start()
+    # test()
     time_end = datetime.datetime.now().timestamp()
     print(time_end)
     print('耗时：' + str(time_end - time_start) + '秒')
