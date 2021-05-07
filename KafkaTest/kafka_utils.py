@@ -62,7 +62,7 @@ def kafka_producer_circulate(hosts, topic_name):
         print(e)
     finally:
         producer.close()
-        print('done')
+        print('done' + str(datetime.datetime.now().timestamp()))
 
 
 def kafka_producer(hosts, topic_name, msg):
